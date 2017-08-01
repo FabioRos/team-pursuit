@@ -2,21 +2,21 @@ import {Rider} from '../models/rider.model';
 
 export const RIDERS: Rider[] = [
   {
-    id: 11,
+    id: 1,
     firstName: "Mario",
     lastName: "Rossi"
   },
   {
-    id: 12,
+    id: 2,
     firstName: "Mario",
     lastName: "Verdi"
   },
-  { id: 13,
+  { id: 3,
     firstName: "Serena",
     lastName: "Bianchi"
   },
   {
-    id:14,
+    id: 4,
     firstName: "Chiara",
     lastName: "Berilio"
   }

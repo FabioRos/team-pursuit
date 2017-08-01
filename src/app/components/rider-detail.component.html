@@ -1,0 +1,8 @@
+
+<div *ngIf="rider" class="rider_detail">
+  <p>Dettegli {{ rider.firstName}} {{rider.lastName}}</p>
+  <div class="inputs">
+    <input [(ngModel)]="rider.firstName" placeholder="Nome">
+    <input [(ngModel)]="rider.lastName" placeholder="Cognome">
+  </div>
+</div>

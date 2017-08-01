@@ -1,0 +1,30 @@
+.rider_detail {
+  float: left;
+  clear: both;
+  display: flex; /* or inline-flex */
+  flex-direction: column;
+
+  width: 100%;
+  /*border-left: 5px solid #369;*/
+  line-height: 1.5em;
+  font-size: 1.2em
+}
+
+.rider_detail .inputs{
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.rider_detail p{
+  text-align: center;
+}
+.rider_detail .inputs input{
+  flex-grow: 0; /* default 0 */
+  line-height: 1.5em;
+  font-size: 1.2em;
+  border: 0;
+  border-bottom: 2px solid #369;
+
+
+}
