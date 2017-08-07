@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-
-
-import {Rider} from './models/rider.model';
-import {RIDERS} from './mocks/riders.mock';
+import { ConfigurationComponent} from './components/configuration.component'
 
 
 
@@ -14,12 +11,6 @@ import {RIDERS} from './mocks/riders.mock';
 
 export class AppComponent {
   title = 'Gestore Quartetto';
-  selectedRider: Rider;
-  riders = RIDERS;
-
-  onSelect(rider: Rider): void {
-    this.selectedRider = rider;
-  }
 }
 
 

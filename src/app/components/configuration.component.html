@@ -1,0 +1,14 @@
+<h2>Atleti</h2>
+<ul class="riders">
+  <li *ngFor="let rider of riders"
+      [class.selected]="rider === selectedRider"
+      (click)="onSelect(rider)" >
+      <img width="25%" src="assets/images/cyclist-blue.svg">
+      <div class="details">
+          <span class="last_name">{{rider.lastName}} </span>
+          <span class="first_name">  {{rider.firstName}} </span>
+      </div>
+</ul>
+
+
+<rider-detail [rider]="selectedRider"></rider-detail>

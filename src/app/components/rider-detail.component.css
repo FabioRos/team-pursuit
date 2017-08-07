@@ -1,6 +1,5 @@
 .rider_detail {
-  float: left;
-  clear: both;
+
   display: flex; /* or inline-flex */
   flex-direction: column;
 
@@ -13,7 +12,7 @@
 .rider_detail .inputs{
   display: flex; /* or inline-flex */
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .rider_detail p{
@@ -25,6 +24,5 @@
   font-size: 1.2em;
   border: 0;
   border-bottom: 2px solid #369;
-
-
+  margin-right: 10px;
 }
