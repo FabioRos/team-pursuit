@@ -1,0 +1,25 @@
+.navigation_pages{
+  display: flex;
+  justify-content: center;
+}
+
+.navigation_pages li{
+  list-style-type: none;
+  font-size: 1.3rem;
+  padding: 5px 10px;
+  border-bottom: 2px transparent;
+}
+
+.navigation_pages li:hover{
+  border-bottom: 2px #ccc solid;
+}
+.navigation_pages li.selected{
+  border-bottom: 2px #336699 solid;
+}
+
+
+.navigation_pages li a{
+  text-decoration: none;
+  color: #111;
+  text-transform: uppercase;
+}

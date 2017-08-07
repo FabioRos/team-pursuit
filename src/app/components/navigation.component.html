@@ -1,0 +1,7 @@
+<ul class="navigation_pages">
+  <li *ngFor="let page of pages"
+      [class.selected]="page === selectedPage"
+      (click)="onSelect(page)" >
+      <a routerLink="{{page.path}}" routerLinkActive="active">{{page.title}}</a>
+
+</ul>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfigurationComponent} from './components/configuration.component'
-
+import { NavigationComponent} from './components/navigation.component'
 
 
 @Component({
