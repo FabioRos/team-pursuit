@@ -8,7 +8,12 @@ export const PAGES: Page[] = [
   },
   {
     id: 2,
-    title: "Configurazione Ambiente",
+    title: "Configurazione",
     path: "/configuration"
+  },
+  {
+    id: 3,
+    title: "Tracker",
+    path: "/tracker"
   }
 ];

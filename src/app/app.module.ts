@@ -1,16 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
-import { RouterModule, Routes } from '@angular/router';
+import { BrowserModule          } from '@angular/platform-browser';
+import { NgModule               } from '@angular/core';
+import { FormsModule            }   from '@angular/forms'; // <-- NgModel lives here
+import { RouterModule, Routes   } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { RiderDetailComponent } from './components/rider-detail.component';
+import { AppComponent           } from './app.component';
+import { RiderDetailComponent   } from './components/rider-detail.component';
 import { ConfigurationComponent } from './components/configuration.component';
-import { NavigationComponent } from './components/navigation.component';
+import { NavigationComponent    } from './components/navigation.component';
+import { HomeComponent          } from './components/home.component'
+import { TrackerComponent       } from './components/tracker.component'
 
 
 const appRoutes: Routes = [
-  { path: 'configuration', component: ConfigurationComponent }
+  { path: '',               redirectTo: 'home',                 pathMatch: 'full'   },
+  { path: 'home',           component: HomeComponent                                },
+  { path: 'configuration',  component: ConfigurationComponent                       },
+  { path: 'tracker',        component: TrackerComponent                             }
+
   /*,{ path: '**', component: PageNotFoundComponent }*/
 ];
 
@@ -22,7 +28,9 @@ const appRoutes: Routes = [
     AppComponent,
     RiderDetailComponent,
     ConfigurationComponent,
-    NavigationComponent
+    NavigationComponent,
+    HomeComponent,
+    TrackerComponent
   ],
   imports: [
     BrowserModule,
