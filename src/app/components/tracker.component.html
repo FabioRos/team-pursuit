@@ -1,8 +1,37 @@
 <h2>Tracker</h2>
+<hr>
+<div class="container">
+    <h1>{{ formatTime(time) }}</h1>
+    <div class="btn-group">
+      <button (click)="toggle()">
+        <i class="icon" 
+           [ngClass]="{ 'ion-play': !started, 'ion-pause': started }">
+        </i>
+      </button>
+      <button (click)="reset()"><i class="icon ion-refresh"></i></button>
+      <button (click)="lap()">Split</button>
+    </div>
+      <div class="laps"
+          *ngIf="stopwatchService.laps.length > 1">
+          <div class="lap"
+            *ngFor="let lap of stopwatchService.laps; let i = index; let last=last">
+              
+              <div>Round {{ i }}</div>
+              <div>{{ formatTime(lap.startMs) }}</div>
+              <div *ngIf="last">{{ formatTime(time) }}</div>
+              <div *ngIf="!last">{{ formatTime(lap.endMs) }}</div>
+          </div>
+      </div>
+  </div>
+<hr>
+<!-- 
+<button>Partenza</button>
+<button>Arrivo</button>
+<button>Stop</button>
+
+
 <ul class="riders">
   <li *ngFor="let rider of riders">
-      <!-- [class.selected]="rider === selectedRider"
-      (click)="onSelect(rider)" > -->
       <button class="partial_btn">
           <span class="last_name">{{rider.lastName}} </span>
           <span class="first_name">  {{rider.firstName}} </span>
@@ -11,3 +40,4 @@
 
 
 <rider-detail [rider]="selectedRider"></rider-detail>
+-->
