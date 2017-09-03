@@ -26,8 +26,8 @@
 
 
 <button  (click)="start()" >Partenza</button>
-<button (click)="reset()" >Arrivo</button>
 <button (click)="stop()" >Stop</button>
+<button (click)="reset()" >Reset</button>
 
 
 <h1>{{ formatTime(time) }}</h1>
@@ -59,4 +59,8 @@
     <!-- <div *ngIf="last">{{ formatTime(time()) }}</div>
     <div *ngIf="!last">{{ formatTime(record.lap.endMs) }}</div> -->
 </div>
+</div>
+
+<div *ngIf="started && stopped">
+    Rilevamento terminato -- Risultati
 </div>

@@ -24,18 +24,19 @@ export class TrackerComponent {
 
 
   public started: boolean;
+  public stopped: boolean;
+
   public stopwatchService: SimplifiedStopwatchService;
   //public stopwatchService: StopwatchService;
   public time: number;
-
   private timer: any;
 
 //  constructor(stopwatchService: StopwatchService) {
   constructor(stopwatchService: SimplifiedStopwatchService) {
-        SimplifiedStopwatchService
       this.stopwatchService = stopwatchService;
       this.time = 0;
       this.started = false;
+      this.stopped = false;
   }
 
   formatTime(timeMs: number) {
@@ -81,19 +82,23 @@ getLastRecordedTime(){
 }
 
 recordTimeLap(rider: Rider){
-    console.log('1');
-    this.update();
-    console.log('2');
-    if (this.started) {
-        this.stopwatchService.recordTimeIntermediate(rider);
-    } 
-    console.log('3');
+    var timestamp_  = (new Date()).getTime();
+    
+    if (this.started && !this.stopped){
+        console.log('1');
+        this.update();
+        console.log('2');
+        this.stopwatchService.recordTimeIntermediate(rider, timestamp_);
+        
+        console.log('3');
+    }
     
 }
 
   reset() {
       this.stopwatchService.reset();
       this.started = false;
+      this.stopped = false;
       this.update();
   }
 
@@ -104,11 +109,12 @@ recordTimeLap(rider: Rider){
   }
 
   stop() {
-      clearInterval(this.timer);
+     // clearInterval(this.timer);
       this.stopwatchService.stop();
+      this.stopped = true;      
   }
 
-  toggle() {
+/*  toggle() {
       if (this.started) {
           this.stop();
       } else {
@@ -117,13 +123,15 @@ recordTimeLap(rider: Rider){
 
       this.started = !this.started;
   }
-
+*/
   update() {
       console.log('update');
       //this.time = this.stopwatchService.time();
   }
-
+/*
   onClick() {
       console.log(this.stopwatchService);
   }
+*/
+    
 }

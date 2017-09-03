@@ -22,10 +22,11 @@ export class SimplifiedStopwatchService {
 
     reset(){
         this.startTime = null;
-        this.endTime = null;
+        this.endTime = null;    //If this field is present, time tracking has been completed.
         this.timeRecords = [];
         this.giroTimes = [];
         this.lastRecordedTime = 0;
+        this.currentTime = null;
     }
 
     start() {
@@ -41,8 +42,13 @@ export class SimplifiedStopwatchService {
         return this.startTime;
     }
 
-    recordTimeIntermediate(rider: Rider){ //TODO testare
-    var timestamp_: number = (new Date()).getTime()
+
+    getEndTime(){
+        return this.endTime;
+    }
+
+    recordTimeIntermediate(rider: Rider, recorded_timestamp_: number){ //TODO testare
+    var timestamp_: number = recorded_timestamp_;
     this.giroTimes.push(timestamp_);
     var lenght: number = this.giroTimes.length;
     var lap: Lap = new Lap(this.giroTimes[lenght-2],this.giroTimes[lenght-1] );
