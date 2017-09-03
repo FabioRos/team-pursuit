@@ -11,6 +11,8 @@ import { HomeComponent          } from './components/home.component'
 import { TrackerComponent       } from './components/tracker.component'
 
 
+
+
 const appRoutes: Routes = [
   { path: '',               redirectTo: 'home',                 pathMatch: 'full'   },
   { path: 'home',           component: HomeComponent                                },
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     ConfigurationComponent,
     NavigationComponent,
     HomeComponent,
-    TrackerComponent
+    TrackerComponent,
+    
   ],
   imports: [
     BrowserModule,

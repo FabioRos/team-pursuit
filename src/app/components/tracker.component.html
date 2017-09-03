@@ -1,14 +1,12 @@
-<h2>Tracker</h2>
+<!-- <h2>Tracker</h2>
 <hr>
 <div class="container">
     <h1>{{ formatTime(time) }}</h1>
     <div class="btn-group">
       <button (click)="toggle()">
-        <i class="icon" 
-           [ngClass]="{ 'ion-play': !started, 'ion-pause': started }">
-        </i>
+          START/STOP
       </button>
-      <button (click)="reset()"><i class="icon ion-refresh"></i></button>
+      <button (click)="reset()">RESET</button>
       <button (click)="lap()">Split</button>
     </div>
       <div class="laps"
@@ -16,7 +14,7 @@
           <div class="lap"
             *ngFor="let lap of stopwatchService.laps; let i = index; let last=last">
               
-              <div>Round {{ i }}</div>
+              <div> Misurazione: {{ i }}</div>
               <div>{{ formatTime(lap.startMs) }}</div>
               <div *ngIf="last">{{ formatTime(time) }}</div>
               <div *ngIf="!last">{{ formatTime(lap.endMs) }}</div>
@@ -24,20 +22,41 @@
       </div>
   </div>
 <hr>
-<!-- 
-<button>Partenza</button>
-<button>Arrivo</button>
-<button>Stop</button>
+ -->
 
 
-<ul class="riders">
-  <li *ngFor="let rider of riders">
-      <button class="partial_btn">
-          <span class="last_name">{{rider.lastName}} </span>
-          <span class="first_name">  {{rider.firstName}} </span>
-      </button>
-</ul>
+<button  (click)="start()" >Partenza</button>
+<button (click)="reset()" >Arrivo</button>
+<button (click)="stop()" >Stop</button>
 
 
-<rider-detail [rider]="selectedRider"></rider-detail>
--->
+<h1>{{ formatTime(time) }}</h1>
+
+<div class="riders">
+    <button *ngFor="let rider of riders" class="partial_btn" 
+    (click)="recordTimeLap(rider)">
+        <span class="last_name">{{rider.lastName}} </span>
+        <span class="first_name">  {{rider.firstName}} </span>
+    </button>
+</div>
+
+<p *ngIf="started">Il quartetto è partito </p>
+
+<div class="intermediates"
+*ngIf="stopwatchService.timeRecords.length > 0">
+<div>
+    <span>Tempo complessivo attuale: <b>{{formatTime(getLastRecordedTime())}}</b></span>
+</div>
+<div class="time-record"
+  *ngFor="let record of stopwatchService.timeRecords; let i = index; let last=last">
+    <div> {{ i }}: {{ riderToString(record.rider) }}</div>
+    <!-- <div>{{ formatTime(record.lap.startMs) }}</div> -->
+    <div>{{ formatTime(record.lap.time()) }}</div>
+    <div >{{ formatTime(getLastFullTime(i+1)) }}</div>
+    
+    
+
+    <!-- <div *ngIf="last">{{ formatTime(time()) }}</div>
+    <div *ngIf="!last">{{ formatTime(record.lap.endMs) }}</div> -->
+</div>
+</div>
