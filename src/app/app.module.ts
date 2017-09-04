@@ -1,7 +1,9 @@
 import { BrowserModule          } from '@angular/platform-browser';
 import { NgModule               } from '@angular/core';
-import { FormsModule            }   from '@angular/forms'; // <-- NgModel lives here
+import { FormsModule            } from '@angular/forms'; // <-- NgModel lives here
 import { RouterModule, Routes   } from '@angular/router';
+
+import { ChartModule }            from 'angular2-chartjs';
 
 import { AppComponent           } from './app.component';
 import { RiderDetailComponent   } from './components/rider-detail.component';
@@ -9,6 +11,7 @@ import { ConfigurationComponent } from './components/configuration.component';
 import { NavigationComponent    } from './components/navigation.component';
 import { HomeComponent          } from './components/home.component'
 import { TrackerComponent       } from './components/tracker.component'
+import { StatsComponent         } from './components/stats.component'
 
 
 
@@ -33,7 +36,7 @@ const appRoutes: Routes = [
     NavigationComponent,
     HomeComponent,
     TrackerComponent,
-    
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

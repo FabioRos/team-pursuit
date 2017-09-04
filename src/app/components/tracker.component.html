@@ -25,7 +25,7 @@
  -->
 
 
-<button  (click)="start()" >Partenza</button>
+<button (click)="start()" >Partenza</button>
 <button (click)="stop()" >Stop</button>
 <button (click)="reset()" >Reset</button>
 
@@ -40,27 +40,22 @@
     </button>
 </div>
 
+<stats [timeRecords]="localTimeTecordsCopy" (change)="buildDataset()"></stats>
+
 <p *ngIf="started">Il quartetto è partito </p>
 
-<div class="intermediates"
-*ngIf="stopwatchService.timeRecords.length > 0">
-<div>
-    <span>Tempo complessivo attuale: <b>{{formatTime(getLastRecordedTime())}}</b></span>
-</div>
-<div class="time-record"
-  *ngFor="let record of stopwatchService.timeRecords; let i = index; let last=last">
-    <div> {{ i }}: {{ riderToString(record.rider) }}</div>
-    <!-- <div>{{ formatTime(record.lap.startMs) }}</div> -->
-    <div>{{ formatTime(record.lap.time()) }}</div>
-    <div >{{ formatTime(getLastFullTime(i+1)) }}</div>
-    
-    
-
-    <!-- <div *ngIf="last">{{ formatTime(time()) }}</div>
-    <div *ngIf="!last">{{ formatTime(record.lap.endMs) }}</div> -->
-</div>
+<div class="intermediates" *ngIf="stopwatchService.timeRecords.length > 0">
+    <div>
+        <span>Tempo complessivo attuale: <b>{{formatTime(getLastRecordedTime())}}</b></span>
+    </div>
+    <div class="time-record"
+    *ngFor="let record of stopwatchService.timeRecords; let i = index; let last=last">
+        <div> {{ i }}: {{ riderToString(record.rider) }}</div>
+        <div>{{ formatTime(record.lap.time()) }}</div>
+        <div >{{ formatTime(getLastFullTime(i+1)) }}</div>
+    </div>
 </div>
 
 <div *ngIf="started && stopped">
-    Rilevamento terminato -- Risultati
+    Rilevamento terminato -- Risultati:
 </div>

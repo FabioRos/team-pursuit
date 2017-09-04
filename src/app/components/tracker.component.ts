@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { NgClass, NgIf, NgFor } from '@angular/common';
 //import { StopwatchService} from '../services/stopwatch.service'
 import { SimplifiedStopwatchService} from '../services/simplified-stopwatch.service'
-
 
 
 import {Rider} from '../models/rider.model';
@@ -21,10 +20,11 @@ import {RIDERS} from '../mocks/riders.mock';
 
 export class TrackerComponent {
   riders = RIDERS;
-
+  
 
   public started: boolean;
   public stopped: boolean;
+  public localTimeTecordsCopy: TimeRecord[];
 
   public stopwatchService: SimplifiedStopwatchService;
   //public stopwatchService: StopwatchService;
@@ -37,6 +37,7 @@ export class TrackerComponent {
       this.time = 0;
       this.started = false;
       this.stopped = false;
+      this.localTimeTecordsCopy=[]
   }
 
   formatTime(timeMs: number) {
@@ -88,7 +89,8 @@ recordTimeLap(rider: Rider){
         console.log('1');
         this.update();
         console.log('2');
-        this.stopwatchService.recordTimeIntermediate(rider, timestamp_);
+        var newTimeRecord: TimeRecord = this.stopwatchService.recordTimeIntermediate(rider, timestamp_);
+        this.localTimeTecordsCopy.push(newTimeRecord);
         
         console.log('3');
     }
@@ -100,18 +102,22 @@ recordTimeLap(rider: Rider){
       this.started = false;
       this.stopped = false;
       this.update();
+      this.localTimeTecordsCopy = [];
+      
   }
 
   start() {
       //this.timer = setInterval(this.getUpdate(), 1);
-      this.stopwatchService.start();
-      this.started = true;
+      if (!this.started && !this.stopped){
+        this.stopwatchService.start();
+        this.started = true;
+      }
   }
 
   stop() {
      // clearInterval(this.timer);
       this.stopwatchService.stop();
-      this.stopped = true;      
+      this.stopped = true;
   }
 
 /*  toggle() {

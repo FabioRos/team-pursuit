@@ -48,12 +48,13 @@ export class SimplifiedStopwatchService {
     }
 
     recordTimeIntermediate(rider: Rider, recorded_timestamp_: number){ //TODO testare
-    var timestamp_: number = recorded_timestamp_;
-    this.giroTimes.push(timestamp_);
-    var lenght: number = this.giroTimes.length;
-    var lap: Lap = new Lap(this.giroTimes[lenght-2],this.giroTimes[lenght-1] );
-    this.timeRecords.push(new TimeRecord(rider, lap));
-    this.lastRecordedTime = timestamp_ - this.startTime
+        var timestamp_: number = recorded_timestamp_;
+        this.giroTimes.push(timestamp_);
+        var lenght: number = this.giroTimes.length;
+        var lap: Lap = new Lap(this.giroTimes[lenght-2],this.giroTimes[lenght-1] );
+        this.timeRecords.push(new TimeRecord(rider, lap));
+        this.lastRecordedTime = timestamp_ - this.startTime
+        return this.timeRecords[lenght-1];
     }
 
     time() {
