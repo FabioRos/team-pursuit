@@ -13,6 +13,8 @@ import { HomeComponent          } from './components/home.component'
 import { TrackerComponent       } from './components/tracker.component'
 import { StatsComponent         } from './components/stats.component'
 
+import { SimplifiedStopwatchService} from './services/simplified-stopwatch.service'
+
 
 
 
@@ -47,7 +49,7 @@ const appRoutes: Routes = [
     ),
     ChartModule
   ],
-  providers: [],
+  providers: [SimplifiedStopwatchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { NgClass, NgIf, NgFor } from '@angular/common';
 //import { StopwatchService} from '../services/stopwatch.service'
 import { SimplifiedStopwatchService} from '../services/simplified-stopwatch.service'
@@ -14,19 +14,19 @@ import {RIDERS} from '../mocks/riders.mock';
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.css'],
  // providers: [StopwatchService]
-  providers: [SimplifiedStopwatchService]
+  providers: []
   
 })
 
 export class TrackerComponent {
   riders = RIDERS;
-  
+  @Input() stopwatchService:SimplifiedStopwatchService;
 
   public started: boolean;
   public stopped: boolean;
   public localTimeTecordsCopy: TimeRecord[];
 
-  public stopwatchService: SimplifiedStopwatchService;
+  //public stopwatchService: SimplifiedStopwatchService;
   //public stopwatchService: StopwatchService;
   public time: number;
   private timer: any;

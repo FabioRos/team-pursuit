@@ -3,6 +3,8 @@ import { Component, Input } from '@angular/core';
 import {Rider} from '../models/rider.model';
 import {RIDERS} from '../mocks/riders.mock';
 import {TimeRecord} from '../models/time-record.model'
+import { SimplifiedStopwatchService} from '../services/simplified-stopwatch.service'
+
 
 //TODO import chart
 //https://www.npmjs.com/package/angular2-chartjs
@@ -16,14 +18,15 @@ import {TimeRecord} from '../models/time-record.model'
 
 
 export class StatsComponent  {
-  @Input() timeRecords: TimeRecord[];
   @Input() lastParentEditTimestamp: number;
+  
+  
   
   private dataSet: Number[];
   private labels:  String[];
 
 
-  constructor(){
+  constructor(public stopwatchService: SimplifiedStopwatchService){
     this.reset();
   }
 
@@ -37,7 +40,7 @@ export class StatsComponent  {
   reset(){
     this.dataSet = [];
     this.labels = [];
-    if(this.timeRecords!= null && this.timeRecords.length > 0){
+    if(this.stopwatchService.timeRecords!= null && this.stopwatchService.timeRecords.length > 0){
       this.buildDataset();
     }
   }
@@ -45,9 +48,9 @@ export class StatsComponent  {
   buildDataset(){
     debugger
     this.reset();
-    for (var i=0; i < this.timeRecords.length; i++){
-      this.labels[i] = this.timeRecords[i].rider.toString();
-      this.dataSet[i] = this.timeRecords[i].lap.time();
+    for (var i=0; i < this.stopwatchService.timeRecords.length; i++){
+      this.labels[i] = this.stopwatchService.timeRecords[i].rider.toString();
+      this.dataSet[i] = this.stopwatchService.timeRecords[i].lap.time();
     }
   }
 

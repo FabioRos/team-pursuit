@@ -1,4 +1,9 @@
 STATS COMPONENT HERE!
+
+<div>
+    <div *ngFor="let service_timerecord of stopwatchService.timeRecords; let j = index; let last=last">{{j}}: {{service_timerecord.rider.lastName}}</div>
+</div>
+
 <div class="stats"
 *ngFor="let data_ of dataSet; let i = index; let last=last">
     <div> {{ i }}: {{ labels[i] }} {{data_}}</div>
