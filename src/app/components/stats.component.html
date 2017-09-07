@@ -8,3 +8,4 @@ STATS COMPONENT HERE!
 *ngFor="let data_ of dataSet; let i = index; let last=last">
     <div> {{ i }}: {{ labels[i] }} {{data_}}</div>
 </div>
+<chart [type]="type" [data]="data" [options]="options"></chart>
