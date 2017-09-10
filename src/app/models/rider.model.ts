@@ -6,4 +6,5 @@ export class Rider{
   toString(){
     return this.lastName + ' ' + this.firstName;
   }
+
 }

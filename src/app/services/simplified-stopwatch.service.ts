@@ -1,4 +1,7 @@
 import {Injectable} from '@angular/core';
+import { BehaviorSubject, Observable } from "rxjs/Rx";
+
+
 import {Lap} from '../models/lap.model'
 import {TimeRecord} from '../models/time-record.model';
 import {Rider} from '../models/rider.model'
@@ -7,7 +10,11 @@ import {Rider} from '../models/rider.model'
 @Injectable()
 export class SimplifiedStopwatchService {
 
-    public timeRecords: TimeRecord[];
+    //https://stackoverflow.com/questions/39544683/angular2-subscribe-to-changes-in-service-data
+    private timeRecords:BehaviorSubject<Array<TimeRecord>> = new BehaviorSubject([]);
+    
+    //public timeRecords: TimeRecord[];
+    
     public currentTime: number;
 
     private startTime: number;
@@ -23,7 +30,7 @@ export class SimplifiedStopwatchService {
     reset(){
         this.startTime = null;
         this.endTime = null;    //If this field is present, time tracking has been completed.
-        this.timeRecords = [];
+        this.timeRecords = new BehaviorSubject([]);
         this.giroTimes = [];
         this.lastRecordedTime = 0;
         this.currentTime = null;
@@ -52,9 +59,14 @@ export class SimplifiedStopwatchService {
         this.giroTimes.push(timestamp_);
         var lenght: number = this.giroTimes.length;
         var lap: Lap = new Lap(this.giroTimes[lenght-2],this.giroTimes[lenght-1] );
-        this.timeRecords.push(new TimeRecord(rider, lap));
+        this.timeRecords.getValue().push(new TimeRecord(rider, lap));
+        this.timeRecords.next(this.timeRecords.getValue())  //emit the entire array
         this.lastRecordedTime = timestamp_ - this.startTime
         return this.timeRecords[lenght-1];
+    }
+
+    getAllTimeRecords(): Observable<Array<TimeRecord>>{
+        return this.timeRecords.asObservable();
     }
 
     time() {
@@ -65,9 +77,7 @@ export class SimplifiedStopwatchService {
         if (this.giroTimes.length < intervalRelevationNumber){
             return 0;
         }
-        
-        var partalsSum_= (this.giroTimes[intervalRelevationNumber] - this.startTime);       
-        
+        var partalsSum_= (this.giroTimes[intervalRelevationNumber] - this.startTime);           
         return  this.startTime ?  partalsSum_ : 0;
     }
 

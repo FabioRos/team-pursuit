@@ -7,7 +7,6 @@ import { SimplifiedStopwatchService} from '../services/simplified-stopwatch.serv
 import { ChartComponent } from 'angular2-chartjs';
 
 
-//TODO import chart
 //https://www.npmjs.com/package/angular2-chartjs
 
 @Component({
@@ -40,24 +39,29 @@ export class StatsComponent {
     maintainAspectRatio: false
   };
 
-  
+
+  public localTimeRecordsCopy: TimeRecord[];
 
   constructor(public stopwatchService: SimplifiedStopwatchService){
     this.reset();
   }
 
+  
+
   reset(){
-    if(this.stopwatchService.timeRecords!= null && this.stopwatchService.timeRecords.length > 0){
-      this.data = {
-        labels: [],
-        datasets: [
-          {
-            label: "My First dataset",
-            data: []
-          }
-        ]
-      };
-    }
+    this.localTimeRecordsCopy =[];
+    this.resetChart();
+  }
+  resetChart(){
+    this.data = {
+      labels: [],
+      datasets: [
+        {
+          label: "My First dataset",
+          data: []
+        }
+      ]
+    };
   }
 
   refreshAllVariables() {
@@ -68,12 +72,12 @@ export class StatsComponent {
 
   buildDataset(){
     console.log('BUILD DATASET');
-    this.reset();
+    this.resetChart();
     var labels = [];
     var dataset = [];
-    for (var i=0; i < this.stopwatchService.timeRecords.length; i++){
-      labels.push(this.stopwatchService.timeRecords[i].rider.toString());
-      dataset[i] = this.stopwatchService.timeRecords[i].lap.time();
+    for (var i=0; i < this.localTimeRecordsCopy.length; i++){
+      labels.push(this.localTimeRecordsCopy[i].rider.lastName + ' ' + this.localTimeRecordsCopy[i].rider.firstName);
+      dataset.push(this.localTimeRecordsCopy[i].lap.time());
     }
     return {labels: labels, dataset: dataset};
   }
@@ -99,18 +103,30 @@ export class StatsComponent {
 
   //-----------------------------------------------------------------------------------------------------------
   
-  interval: any;
-  ngOnInit(){
-  this.interval = setInterval(() => {
+//  interval: any;
+ngAfterViewInit(){
+  /*this.interval = setInterval(() => {
        this.refreshAllVariables() ;
        this.chart.chart.update();
    }, 5000);
+   */
+
+    this.stopwatchService.getAllTimeRecords().subscribe(timerecordsData => { 
+          this.localTimeRecordsCopy = timerecordsData;
+          this.refreshAllVariables(); // <- need to manually trigger redraw, ngOnChanges is not called by the subscription
+          this.chart.chart.update();
+          
+                      
+      });
+
+      
   }
 
    ngOnDestroy() {
-   if (this.interval) {
+   /*if (this.interval) {
        clearInterval(this.interval);
    }
+   */
   }
 
 

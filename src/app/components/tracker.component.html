@@ -44,12 +44,12 @@
 
 <p *ngIf="started">Il quartetto è partito </p>
 
-<div class="intermediates" *ngIf="stopwatchService.timeRecords.length > 0">
+<div class="intermediates" *ngIf="localTimeRecordsCopy.length > 0">
     <div>
         <span>Tempo complessivo attuale: <b>{{formatTime(getLastRecordedTime())}}</b></span>
     </div>
     <div class="time-record"
-    *ngFor="let record of stopwatchService.timeRecords; let i = index; let last=last">
+    *ngFor="let record of localTimeRecordsCopy; let i = index; let last=last">
         <div> {{ i }}: {{ riderToString(record.rider) }}</div>
         <div>{{ formatTime(record.lap.time()) }}</div>
         <div >{{ formatTime(getLastFullTime(i+1)) }}</div>

@@ -24,7 +24,7 @@ export class TrackerComponent {
 
   public started: boolean;
   public stopped: boolean;
-  public localTimeTecordsCopy: TimeRecord[];
+  public localTimeRecordsCopy: TimeRecord[];
 
   //public stopwatchService: SimplifiedStopwatchService;
   //public stopwatchService: StopwatchService;
@@ -37,7 +37,7 @@ export class TrackerComponent {
       this.time = 0;
       this.started = false;
       this.stopped = false;
-      this.localTimeTecordsCopy=[]
+      this.localTimeRecordsCopy=[]
   }
 
   formatTime(timeMs: number) {
@@ -89,8 +89,9 @@ recordTimeLap(rider: Rider){
         console.log('1');
         this.update();
         console.log('2');
-        var newTimeRecord: TimeRecord = this.stopwatchService.recordTimeIntermediate(rider, timestamp_);
-        this.localTimeTecordsCopy.push(newTimeRecord);
+        this.stopwatchService.recordTimeIntermediate(rider, timestamp_);
+        // var newTimeRecord: TimeRecord = 
+        // this.localTimeRecordsCopy.push(newTimeRecord);
         
         console.log('3');
     }
@@ -102,7 +103,7 @@ recordTimeLap(rider: Rider){
       this.started = false;
       this.stopped = false;
       this.update();
-      this.localTimeTecordsCopy = [];
+      this.localTimeRecordsCopy = [];
       
   }
 
@@ -120,24 +121,16 @@ recordTimeLap(rider: Rider){
       this.stopped = true;
   }
 
-/*  toggle() {
-      if (this.started) {
-          this.stop();
-      } else {
-          this.start();
-      }
 
-      this.started = !this.started;
-  }
-*/
   update() {
       console.log('update');
       //this.time = this.stopwatchService.time();
   }
-/*
-  onClick() {
-      console.log(this.stopwatchService);
-  }
-*/
-    
+
+ngOnInit(){
+      this.stopwatchService.getAllTimeRecords().subscribe(timerecordsData => { 
+            this.localTimeRecordsCopy = timerecordsData;
+        });
+    }
+
 }
