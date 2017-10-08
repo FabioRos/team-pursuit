@@ -53,6 +53,8 @@
         <div> {{ i }}: {{ riderToString(record.rider) }}</div>
         <div>{{ formatTime(record.lap.time()) }}</div>
         <div >{{ formatTime(getLastFullTime(i+1)) }}</div>
+        <div >{{ formatTime(record.deltaTime) }}</div>
+        <div >{{ record.deltaPercentage }}%</div>
     </div>
 </div>
 

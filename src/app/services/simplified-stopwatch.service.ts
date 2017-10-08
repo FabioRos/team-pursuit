@@ -55,15 +55,15 @@ export class SimplifiedStopwatchService {
         return this.endTime;
     }
 
-    recordTimeIntermediate(rider: Rider, recorded_timestamp_: number){ //TODO testare
+    recordTimeIntermediate(rider: Rider, recorded_timestamp_: number, deltaTime: number, deltaPercentage: number){ //TODO testare
         var timestamp_: number = recorded_timestamp_;
         this.giroTimes.push(timestamp_);
         var lenght: number = this.giroTimes.length;
         var lap: Lap = new Lap(this.giroTimes[lenght-2],this.giroTimes[lenght-1] );
-        this.timeRecords.getValue().push(new TimeRecord(rider, lap));
+        this.timeRecords.getValue().push(new TimeRecord(rider, lap, deltaTime, deltaPercentage));
         this.timeRecords.next(this.timeRecords.getValue())  //emit the entire array
         this.lastRecordedTime = timestamp_ - this.startTime
-        return this.timeRecords[lenght-1];
+        return this.timeRecords[-1];
     }
 
     getAllTimeRecords(): Observable<Array<TimeRecord>>{
@@ -84,6 +84,27 @@ export class SimplifiedStopwatchService {
 
     getLastRecordedTime(){
         return this.lastRecordedTime;
+    }
+
+    getLastDeltaInfo(){
+        var timerecordLength: number = this.timeRecords.getValue().length
+        var deltaTime: number = 0;
+        var deltaPercentage: number =0 ;
+        
+        if (timerecordLength > 1){
+            var penultimateIntermediate: number = this.timeRecords.getValue()[timerecordLength-2].lap.time();
+            var lastIntermediate: number = this.getLastRecordedTime()
+
+            deltaTime = lastIntermediate - penultimateIntermediate
+            deltaPercentage = ((lastIntermediate / penultimateIntermediate) *100) - 100;
+            
+        }
+
+        return  {
+            'deltaTime': deltaTime,
+            'deltaPercentage': deltaPercentage
+        }
+
     }
 
 }

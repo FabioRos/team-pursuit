@@ -26,6 +26,7 @@ export class TrackerComponent {
   public stopped: boolean;
   public localTimeRecordsCopy: TimeRecord[];
 
+
   //public stopwatchService: SimplifiedStopwatchService;
   //public stopwatchService: StopwatchService;
   public time: number;
@@ -37,7 +38,8 @@ export class TrackerComponent {
       this.time = 0;
       this.started = false;
       this.stopped = false;
-      this.localTimeRecordsCopy=[]
+
+      this.localTimeRecordsCopy=[];
   }
 
   formatTime(timeMs: number) {
@@ -82,6 +84,14 @@ getLastRecordedTime(){
     return this.stopwatchService.getLastRecordedTime();
 }
 
+getLastDeltaInfo(){
+    return this.stopwatchService.getLastDeltaInfo();
+}
+
+updateLastDeltaInfo(){
+    
+}
+
 recordTimeLap(rider: Rider){
     var timestamp_  = (new Date()).getTime();
     
@@ -89,12 +99,14 @@ recordTimeLap(rider: Rider){
         console.log('1');
         this.update();
         console.log('2');
-        this.stopwatchService.recordTimeIntermediate(rider, timestamp_);
+        var deltaInfo: any = this.getLastDeltaInfo();
+        this.stopwatchService.recordTimeIntermediate(rider, timestamp_, deltaInfo.deltaTime, deltaInfo.deltaPercentage );
         // var newTimeRecord: TimeRecord = 
         // this.localTimeRecordsCopy.push(newTimeRecord);
         
         console.log('3');
     }
+    this.updateLastDeltaInfo();
     
 }
 
