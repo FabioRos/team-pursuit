@@ -28,7 +28,7 @@ export class StatsComponent {
     labels: [],
     datasets: [
       {
-        label: "My First dataset",
+        label: "Andamento dei tempi",
         data: []
       }
     ]
@@ -36,7 +36,15 @@ export class StatsComponent {
 
   options = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    elements: { // In that way I obtain straight lines
+      line: {
+          tension: 0
+      }
+    },    
+    animation: {
+      duration: 0
+    }
   };
 
 
@@ -47,6 +55,10 @@ export class StatsComponent {
   }
 
   
+  resetAll(){
+    this.reset();
+    this.resetChart();
+  }
 
   reset(){
     this.localTimeRecordsCopy =[];
@@ -57,7 +69,7 @@ export class StatsComponent {
       labels: [],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Andamento dei tempi",
           data: []
         }
       ]
@@ -88,7 +100,7 @@ export class StatsComponent {
       labels: labels,
       datasets: [
         {
-          label: "My First dataset",
+          label: "Andamento dei tempi",
           data: dataset
         }
       ]

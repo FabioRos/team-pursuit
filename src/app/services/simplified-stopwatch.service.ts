@@ -30,10 +30,11 @@ export class SimplifiedStopwatchService {
     reset(){
         this.startTime = null;
         this.endTime = null;    //If this field is present, time tracking has been completed.
-        this.timeRecords = new BehaviorSubject([]);
         this.giroTimes = [];
         this.lastRecordedTime = 0;
         this.currentTime = null;
+        while ( this.timeRecords.getValue().length) {  this.timeRecords.getValue().pop();} //clear the graph      
+        this.timeRecords.next(this.timeRecords.getValue())  //emit the entire array
     }
 
     start() {
