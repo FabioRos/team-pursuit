@@ -48,8 +48,8 @@ export class TrackerComponent {
           milliseconds: string;
 
       minutes = Math.floor(timeMs / 60000).toString();
-      seconds = Math.floor((timeMs % 60000) / 1000).toString();
-      milliseconds = Math.floor((timeMs % 60000) % 1000).toString();
+      seconds = Math.floor(Math.abs((timeMs % 60000) / 1000)).toString();
+      milliseconds = Math.floor(Math.abs((timeMs % 60000) % 1000)).toString();
       
       return minutes + ':' + (+seconds < 10 ? '0' : '') + seconds + ':' + milliseconds;
   }
