@@ -44,11 +44,14 @@ export class TrackerComponent {
 
   formatTime(timeMs: number) {
       let minutes: string,
-          seconds: string;
+          seconds: string,
+          milliseconds: string;
 
       minutes = Math.floor(timeMs / 60000).toString();
-      seconds = ((timeMs % 60000) / 1000).toFixed(3);
-      return minutes + ':' + (+seconds < 10 ? '0' : '') + seconds;
+      seconds = Math.floor((timeMs % 60000) / 1000).toString();
+      milliseconds = Math.floor((timeMs % 60000) % 1000).toString();
+      
+      return minutes + ':' + (+seconds < 10 ? '0' : '') + seconds + ':' + milliseconds;
   }
 
 riderToString(rider: Rider){
