@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from "rxjs/Rx";
 import {Lap} from '../models/lap.model'
 import {TimeRecord} from '../models/time-record.model';
 import {Rider} from '../models/rider.model'
+import { timestamp } from 'rxjs/operator/timestamp';
 
 
 @Injectable()
@@ -19,7 +20,6 @@ export class SimplifiedStopwatchService {
 
     private startTime: number;
     private endTime: number;
-    private giroTimes: number[];
     private lastRecordedTime: number;
 
     constructor() {
@@ -30,7 +30,6 @@ export class SimplifiedStopwatchService {
     reset(){
         this.startTime = null;
         this.endTime = null;    //If this field is present, time tracking has been completed.
-        this.giroTimes = [];
         this.lastRecordedTime = 0;
         this.currentTime = null;
         while ( this.timeRecords.getValue().length) {  this.timeRecords.getValue().pop();} //clear the graph      
@@ -38,8 +37,9 @@ export class SimplifiedStopwatchService {
     }
 
     start() {
-        this.startTime = (new Date()).getTime();
-        this.giroTimes.push(this.startTime);
+        var timestamp_ = (new Date()).getTime();
+        this.startTime = timestamp_;
+        this.currentTime = timestamp_;
     }
 
     stop() {
@@ -55,12 +55,11 @@ export class SimplifiedStopwatchService {
         return this.endTime;
     }
 
-    recordTimeIntermediate(rider: Rider, recorded_timestamp_: number, deltaTime: number, deltaPercentage: number){ //TODO testare
+    recordTimeIntermediate(rider: Rider, recorded_timestamp_: number){ //TODO testare
         var timestamp_: number = recorded_timestamp_;
-        this.giroTimes.push(timestamp_);
-        var lenght: number = this.giroTimes.length;
-        var lap: Lap = new Lap(this.giroTimes[lenght-2],this.giroTimes[lenght-1] );
-        this.timeRecords.getValue().push(new TimeRecord(rider, lap, deltaTime, deltaPercentage));
+        var lap: Lap = new Lap(this.currentTime, recorded_timestamp_ );
+        this.currentTime = timestamp_;
+        this.timeRecords.getValue().push(new TimeRecord(rider, lap));
         this.timeRecords.next(this.timeRecords.getValue())  //emit the entire array
         this.lastRecordedTime = timestamp_ - this.startTime
         return this.timeRecords[-1];
@@ -75,36 +74,19 @@ export class SimplifiedStopwatchService {
     }
 
     lastIntervalFullTime(intervalRelevationNumber: number){
-        if (this.giroTimes.length < intervalRelevationNumber){
-            return 0;
+
+        if (this.timeRecordsLength() < intervalRelevationNumber){
+                 return 0;
+        }else{
+            return this.timeRecords.getValue()[intervalRelevationNumber].lap.endMs - this.startTime;
         }
-        var partalsSum_= (this.giroTimes[intervalRelevationNumber] - this.startTime);           
-        return  this.startTime ?  partalsSum_ : 0;
+    }
+
+    timeRecordsLength(){
+        return this.timeRecords.getValue().length-1
     }
 
     getLastRecordedTime(){
         return this.lastRecordedTime;
     }
-
-    getLastDeltaInfo(){
-        var timerecordLength: number = this.timeRecords.getValue().length
-        var deltaTime: number = 0;
-        var deltaPercentage: number =0 ;
-        
-        if (timerecordLength > 1){
-            var penultimateIntermediate: number = this.timeRecords.getValue()[timerecordLength-2].lap.time();
-            var lastIntermediate: number = this.getLastRecordedTime()
-
-            deltaTime = lastIntermediate - penultimateIntermediate
-            deltaPercentage = ((lastIntermediate / penultimateIntermediate) *100) - 100;
-            
-        }
-
-        return  {
-            'deltaTime': deltaTime,
-            'deltaPercentage': deltaPercentage
-        }
-
-    }
-
 }

@@ -51,25 +51,6 @@ export class TrackerComponent {
       return minutes + ':' + (+seconds < 10 ? '0' : '') + seconds;
   }
 
-  /*
-  getUpdate() {
-      let self = this;
-
-      return () => {
-          self.time = this.stopwatchService.time();
-      };
-  }
-  */
-/*
-  lap() {
-      this.update();
-
-      if (this.time) {
-          this.stopwatchService.lap();
-      }
-  }
-*/
-
 riderToString(rider: Rider){
     console.log ('fff');
     return (rider == null ? 'PARTENZA' : (rider.lastName + ' ' + rider.firstName));
@@ -84,29 +65,13 @@ getLastRecordedTime(){
     return this.stopwatchService.getLastRecordedTime();
 }
 
-getLastDeltaInfo(){
-    return this.stopwatchService.getLastDeltaInfo();
-}
-
-updateLastDeltaInfo(){
-    
-}
 
 recordTimeLap(rider: Rider){
     var timestamp_  = (new Date()).getTime();
     
     if (this.started && !this.stopped){
-        console.log('1');
-        this.update();
-        console.log('2');
-        var deltaInfo: any = this.getLastDeltaInfo();
-        this.stopwatchService.recordTimeIntermediate(rider, timestamp_, deltaInfo.deltaTime, deltaInfo.deltaPercentage );
-        // var newTimeRecord: TimeRecord = 
-        // this.localTimeRecordsCopy.push(newTimeRecord);
-        
-        console.log('3');
+        this.stopwatchService.recordTimeIntermediate(rider, timestamp_ );     
     }
-    this.updateLastDeltaInfo();
     
 }
 
@@ -114,7 +79,6 @@ recordTimeLap(rider: Rider){
       this.stopwatchService.reset();
       this.started = false;
       this.stopped = false;
-      this.update();
       this.localTimeRecordsCopy = [];
       
   }
@@ -131,12 +95,6 @@ recordTimeLap(rider: Rider){
      // clearInterval(this.timer);
       this.stopwatchService.stop();
       this.stopped = true;
-  }
-
-
-  update() {
-      console.log('update');
-      //this.time = this.stopwatchService.time();
   }
 
 ngOnInit(){

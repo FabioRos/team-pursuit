@@ -1,33 +1,7 @@
-<!-- <h2>Tracker</h2>
-<hr>
-<div class="container">
-    <h1>{{ formatTime(time) }}</h1>
-    <div class="btn-group">
-      <button (click)="toggle()">
-          START/STOP
-      </button>
-      <button (click)="reset()">RESET</button>
-      <button (click)="lap()">Split</button>
-    </div>
-      <div class="laps"
-          *ngIf="stopwatchService.laps.length > 1">
-          <div class="lap"
-            *ngFor="let lap of stopwatchService.laps; let i = index; let last=last">
-              
-              <div> Misurazione: {{ i }}</div>
-              <div>{{ formatTime(lap.startMs) }}</div>
-              <div *ngIf="last">{{ formatTime(time) }}</div>
-              <div *ngIf="!last">{{ formatTime(lap.endMs) }}</div>
-          </div>
-      </div>
-  </div>
-<hr>
- -->
-
-
 <button (click)="start()" >Partenza</button>
-<button (click)="stop()" >Stop</button>
-<button (click)="reset()" >Reset</button>
+<button (click)="stop()" >Finish</button>
+<button (click)="reset()" *ngIf="stopped">Reset</button>
+
 
 
 <h1>{{ formatTime(time) }}</h1>
@@ -51,10 +25,12 @@
     <div class="time-record"
     *ngFor="let record of localTimeRecordsCopy; let i = index; let last=last">
         <div> {{ i }}: {{ riderToString(record.rider) }}</div>
-        <div>{{ formatTime(record.lap.time()) }}</div>
-        <div >{{ formatTime(getLastFullTime(i+1)) }}</div>
-        <div >{{ formatTime(record.deltaTime) }}</div>
-        <div >{{ record.deltaPercentage }}%</div>
+        <div>lap time: {{ formatTime(record.lap.time()) }}</div>
+        <div >current full time{{ formatTime(getLastFullTime(i+1)) }}</div>
+        <!-- 
+            <div >delta time{{ formatTime(record.deltaTime) }}</div>
+            <div >delta percentage {{ record.deltaPercentage }}%</div>
+        -->
     </div>
 </div>
 
