@@ -5,6 +5,7 @@ import {RIDERS} from '../mocks/riders.mock';
 import {TimeRecord} from '../models/time-record.model'
 import { SimplifiedStopwatchService} from '../services/simplified-stopwatch.service'
 import { ChartComponent } from 'angular2-chartjs';
+import { TrackerComponent } from './tracker.component';
 
 
 //https://www.npmjs.com/package/angular2-chartjs
@@ -53,14 +54,14 @@ export class StatsComponent {
       mode: 'single',
       callbacks: {
           label: function(tooltipItems, data) { 
-              var deltaPercetage_: string = '';
+              var deltaPercetageString_: string = '';
               if(tooltipItems.index>0){
                 var previousValue_: number= this._data.datasets[0].data[tooltipItems.index-1];
-                var delta: number= ((tooltipItems.yLabel - previousValue_)/previousValue_ )*100;
-                deltaPercetage_ = (delta > 0 ? '+' : '')  + delta.toPrecision(3) + '%'; 
+                var delta: number= (tooltipItems.yLabel - previousValue_);
+                var deltaPercetage_: number= ((delta)/previousValue_ )*100;
+                var deltaPercetageString_: string= (delta > 0 ? '+' : '')  + deltaPercetage_.toFixed(2) + '%'; 
               }
-
-              return [tooltipItems.yLabel/1000 +' secondi', deltaPercetage_] ;
+              return [tooltipItems.yLabel/1000 +' secondi', deltaPercetageString_, StatsComponent.formatTime(delta)] ;
           }
       }
   },
@@ -144,6 +145,17 @@ export class StatsComponent {
     };
    // 
     
+  }
+
+
+  static formatTime(timeIntervalMs): string{
+    let minutes: string,
+        seconds: string,
+        milliseconds: string;
+      seconds = Math.floor(Math.abs(timeIntervalMs / 1000)).toString();
+      milliseconds = Math.floor(Math.abs(timeIntervalMs % 1000)).toString();
+      
+      return (timeIntervalMs > 0 ? '+' : '-') + seconds + '.' + milliseconds + 'secondi';
   }
 
 

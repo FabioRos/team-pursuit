@@ -42,7 +42,7 @@ export class TrackerComponent {
       this.localTimeRecordsCopy=[];
   }
 
-  formatTime(timeMs: number) {
+  public formatTime(timeMs: number) {
       let minutes: string,
           seconds: string,
           milliseconds: string;
