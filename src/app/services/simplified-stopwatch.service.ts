@@ -17,6 +17,7 @@ export class SimplifiedStopwatchService {
     //public timeRecords: TimeRecord[];
     
     public currentTime: number;
+    public previousTimestamp: number;
 
     private startTime: number;
     private endTime: number;
@@ -40,6 +41,8 @@ export class SimplifiedStopwatchService {
         var timestamp_ = (new Date()).getTime();
         this.startTime = timestamp_;
         this.currentTime = timestamp_;
+        this.previousTimestamp = null;
+        
     }
 
     stop() {
@@ -58,8 +61,13 @@ export class SimplifiedStopwatchService {
     recordTimeIntermediate(rider: Rider, recorded_timestamp_: number){ //TODO testare
         var timestamp_: number = recorded_timestamp_;
         var lap: Lap = new Lap(this.currentTime, recorded_timestamp_ );
+        
+        if (this.timeRecordsLastIndex() >= 0){
+            var previousTime: number = this.currentTime - this.previousTimestamp
+        }
+        this.timeRecords.getValue().push(new TimeRecord(rider, lap, previousTime));
+        this.previousTimestamp=this.currentTime
         this.currentTime = timestamp_;
-        this.timeRecords.getValue().push(new TimeRecord(rider, lap));
         this.timeRecords.next(this.timeRecords.getValue())  //emit the entire array
         this.lastRecordedTime = timestamp_ - this.startTime
         return this.timeRecords[-1];
@@ -75,14 +83,14 @@ export class SimplifiedStopwatchService {
 
     lastIntervalFullTime(intervalRelevationNumber: number){
 
-        if (this.timeRecordsLength() < intervalRelevationNumber){
+        if (this.timeRecordsLastIndex() < intervalRelevationNumber){
                  return 0;
         }else{
             return this.timeRecords.getValue()[intervalRelevationNumber].lap.endMs - this.startTime;
         }
     }
 
-    timeRecordsLength(){
+    timeRecordsLastIndex(){
         return this.timeRecords.getValue().length-1
     }
 
