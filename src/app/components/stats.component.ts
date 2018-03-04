@@ -29,7 +29,10 @@ export class StatsComponent {
     datasets: [
       {
         label: "Andamento dei tempi",
-        data: []
+        data: [],
+        pointBackgroundColor: [],
+        borderColor: [],
+        pointBorderColor: []
       }
     ]
   };
@@ -44,7 +47,23 @@ export class StatsComponent {
     },    
     animation: {
       duration: 0
-    }
+    },
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      callbacks: {
+          label: function(tooltipItems, data) { 
+              var deltaPercetage_: string = '';
+              if(tooltipItems.index>0){
+                var previousValue_: number= this._data.datasets[0].data[tooltipItems.index-1];
+                var delta: number= ((tooltipItems.yLabel - previousValue_)/previousValue_ )*100;
+                deltaPercetage_ = (delta > 0 ? '+' : '')  + delta.toPrecision(3) + '%'; 
+              }
+
+              return [tooltipItems.yLabel/1000 +' secondi', deltaPercetage_] ;
+          }
+      }
+  },
   };
 
 
@@ -70,7 +89,10 @@ export class StatsComponent {
       datasets: [
         {
           label: "Andamento dei tempi",
-          data: []
+          data: [],
+          pointBackgroundColor: [],
+          borderColor: [],
+          pointBorderColor: []
         }
       ]
     };
@@ -79,7 +101,7 @@ export class StatsComponent {
   refreshAllVariables() {
     console.log('CHANGE');
     var data = this.buildDataset();
-    this.refreshChart(data.labels, data.dataset);
+    this.refreshChart(data.labels, data.dataset, data.pointBackgroundColor, data.borderColor, data.pointBorderColor);
   }
 
   buildDataset(){
@@ -87,21 +109,36 @@ export class StatsComponent {
     this.resetChart();
     var labels = [];
     var dataset = [];
+    var pointBackgroundColor_ = []
+    var borderColor_ = []
+    var pointBorderColor_ = []
+    var color_: string;
     for (var i=0; i < this.localTimeRecordsCopy.length; i++){
+      if(i==0){
+        color_ = 'blue'
+      }else{
+        color_ = ((this.localTimeRecordsCopy[i].deltaTime <= 0) ? 'green' : 'red')
+      }
       labels.push(this.localTimeRecordsCopy[i].rider.lastName + ' ' + this.localTimeRecordsCopy[i].rider.firstName);
       dataset.push(this.localTimeRecordsCopy[i].lap.time());
+      pointBackgroundColor_.push(color_);
+      borderColor_.push(color_);
+      pointBorderColor_.push(color_);
     }
-    return {labels: labels, dataset: dataset};
+    return {labels: labels, dataset: dataset, pointBackgroundColor: pointBackgroundColor_, borderColor: borderColor_, pointBorderColor: pointBorderColor_};
   }
 
-  refreshChart(labels: String[], dataset: Number[]) {
+  refreshChart(labels: String[], dataset: Number[], pointBackgroundColor_: String[], borderColor_: String[], pointBorderColor_: String[]) {
     console.log('RC');
     this.data = {
       labels: labels,
       datasets: [
         {
           label: "Andamento dei tempi",
-          data: dataset
+          data: dataset,
+          pointBackgroundColor: pointBackgroundColor_,
+          borderColor: borderColor_,
+          pointBorderColor: pointBorderColor_
         }
       ]
     };
@@ -126,9 +163,7 @@ ngAfterViewInit(){
     this.stopwatchService.getAllTimeRecords().subscribe(timerecordsData => { 
           this.localTimeRecordsCopy = timerecordsData;
           this.refreshAllVariables(); // <- need to manually trigger redraw, ngOnChanges is not called by the subscription
-          this.chart.chart.update();
-          
-                      
+          this.chart.chart.update();    
       });
 
       
