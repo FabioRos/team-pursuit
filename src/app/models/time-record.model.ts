@@ -17,7 +17,7 @@ export class TimeRecord{
     time(){
         return this.lap.time();
     }
-
+    
     computeDelta(previousTimeInterval){
         this.deltaTime = this.lap.time() - previousTimeInterval;
         this.deltaPercentage = ((this.deltaTime)/previousTimeInterval)*100;

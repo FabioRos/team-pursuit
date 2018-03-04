@@ -40,7 +40,7 @@ export class StatsComponent {
 
   options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     elements: { // In that way I obtain straight lines
       line: {
           tension: 0
@@ -48,6 +48,13 @@ export class StatsComponent {
     },    
     animation: {
       duration: 0
+    }, 
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero: true
+          }
+      }]
     },
     tooltips: {
       enabled: true,

@@ -16,8 +16,6 @@ import { StatsComponent         } from './components/stats.component'
 import { SimplifiedStopwatchService} from './services/simplified-stopwatch.service'
 
 
-
-
 const appRoutes: Routes = [
   { path: '',               redirectTo: 'home',                 pathMatch: 'full'   },
   { path: 'home',           component: HomeComponent                                },

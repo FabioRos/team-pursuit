@@ -1,7 +1,7 @@
 <button (click)="start()" >Partenza</button>
 <button (click)="stop()" >Finish</button>
 <button (click)="reset()" *ngIf="stopped">Reset</button>
-
+<button (click)="downloadPDF()" *ngIf="stopped">Scarica PDF</button>
 
 
 <h1>{{ formatTime(time) }}</h1>
@@ -15,7 +15,6 @@
 </div>
 
 <stats></stats>
-
 <p *ngIf="started">Il quartetto è partito </p>
 
 <div class="intermediates" *ngIf="localTimeRecordsCopy.length > 0">
