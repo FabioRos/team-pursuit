@@ -22,8 +22,9 @@ export class StatsComponent {
   @Input() lastParentEditTimestamp: number;
   @ViewChild(ChartComponent) chart: ChartComponent; 
   
+
   //https://github.com/emn178/angular2-chartjs/blob/master/dev/app.component.ts
-  
+  dataSet: any;
   type = 'line';
   data = {
     labels: [],
