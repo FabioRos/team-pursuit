@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --env=prod --output-hashing none",
+    "postinstall": "ng build --aot=false --env=prod --output-hashing none",
     "start": "node server.js"
   },
   "private": true,
