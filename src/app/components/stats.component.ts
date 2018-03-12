@@ -59,7 +59,9 @@ export class StatsComponent {
     },
     tooltips: {
       enabled: true,
-      mode: 'single',
+      mode: 'nearest',
+      intersect: false,
+      animationEnabled: false,
       callbacks: {
           label: function(tooltipItems, data) { 
               var deltaPercetageString_: string = '';

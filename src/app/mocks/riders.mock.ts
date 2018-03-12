@@ -12,7 +12,7 @@ export const RIDERS: Rider[] = [
     lastName: "Verdi"
   },
   { id: 3,
-    firstName: "Albreto",
+    firstName: "Alberto",
     lastName: "Bianchi"
   },
   {
