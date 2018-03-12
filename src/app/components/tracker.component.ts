@@ -1,5 +1,5 @@
 import { Component, Input} from '@angular/core';
-import { NgClass, NgIf, NgFor } from '@angular/common';
+//import { NgClass, NgIf, NgFor } from '@angular/common';
 declare var jsPDF: any; 
 
 //import { StopwatchService} from '../services/stopwatch.service'
