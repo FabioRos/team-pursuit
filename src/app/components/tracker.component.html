@@ -1,13 +1,13 @@
-<button (click)="start()" >Partenza</button>
-<button (click)="stop()" >Finish</button>
-<button (click)="reset()" *ngIf="stopped">Reset</button>
-<button (click)="downloadPDF()" *ngIf="stopped">Scarica PDF</button>
+<button mat-button (click)="start()" >Partenza</button>
+<button mat-button (click)="stop()" >Finish</button>
+<button mat-button (click)="reset()" *ngIf="stopped">Reset</button>
+<button mat-button (click)="downloadPDF()" *ngIf="stopped">Scarica PDF</button>
 
 
 <h1>{{ formatTime(time) }}</h1>
 
 <div class="riders">
-    <button *ngFor="let rider of riders" class="partial_btn" 
+    <button mat-button *ngFor="let rider of riders" class="partial_btn" 
     (click)="recordTimeLap(rider)">
         <span class="last_name">{{rider.lastName}} </span>
         <span class="first_name">  {{rider.firstName}} </span>

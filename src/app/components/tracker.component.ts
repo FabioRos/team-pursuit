@@ -68,7 +68,7 @@ export class TrackerComponent {
     
   
 riderToString(rider: Rider){
-    console.log ('fff');
+    //console.log ('fff');
     return (rider == null ? 'PARTENZA' : (rider.lastName + ' ' + rider.firstName));
 }
 

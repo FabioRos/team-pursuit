@@ -15,6 +15,7 @@ import { StatsComponent         } from './components/stats.component'
 
 import { SimplifiedStopwatchService} from './services/simplified-stopwatch.service'
 
+import {MatButtonModule} from '@angular/material/button';
 
 const appRoutes: Routes = [
   { path: '',               redirectTo: 'home',                 pathMatch: 'full'   },
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
-    ChartModule
+    ChartModule,
+    MatButtonModule
   ],
   providers: [SimplifiedStopwatchService],
   bootstrap: [AppComponent]
