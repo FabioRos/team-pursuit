@@ -8,16 +8,16 @@ export const RIDERS: Rider[] = [
   },
   {
     id: 2,
-    firstName: "Mario",
+    firstName: "Gino",
     lastName: "Verdi"
   },
   { id: 3,
-    firstName: "Serena",
+    firstName: "Albreto",
     lastName: "Bianchi"
   },
   {
     id: 4,
-    firstName: "Chiara",
-    lastName: "Berilio"
+    firstName: "Giorgio",
+    lastName: "Verdi"
   }
 ];
