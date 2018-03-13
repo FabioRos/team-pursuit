@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfigurationComponent} from './components/configuration.component'
 import { NavigationComponent} from './components/navigation.component'
+import { ToolbarComponent} from './components/toolbar.component'
 
 
 @Component({

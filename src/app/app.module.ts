@@ -12,10 +12,13 @@ import { NavigationComponent    } from './components/navigation.component';
 import { HomeComponent          } from './components/home.component'
 import { TrackerComponent       } from './components/tracker.component'
 import { StatsComponent         } from './components/stats.component'
+import { ToolbarComponent         } from './components/toolbar.component'
 
 import { SimplifiedStopwatchService} from './services/simplified-stopwatch.service'
 
 import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {Component} from '@angular/core';
 
 const appRoutes: Routes = [
   { path: '',               redirectTo: 'home',                 pathMatch: 'full'   },
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     HomeComponent,
     TrackerComponent,
-    StatsComponent
+    StatsComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,8 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     ChartModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [SimplifiedStopwatchService],
   bootstrap: [AppComponent]
