@@ -18,6 +18,8 @@ import { SimplifiedStopwatchService} from './services/simplified-stopwatch.servi
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTableModule} from '@angular/material/table';
+
 import {Component} from '@angular/core';
 
 const appRoutes: Routes = [
@@ -52,7 +54,8 @@ const appRoutes: Routes = [
     ),
     ChartModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule
   ],
   providers: [SimplifiedStopwatchService],
   bootstrap: [AppComponent]

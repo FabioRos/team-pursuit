@@ -1,0 +1,35 @@
+table.tempo_table{
+    width: 100%;
+    display: table;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table.tempo_table thead {
+    border-bottom: 1px solid #d0d0d0;
+}
+
+table.tempo_table tbody>tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+table.tempo_table tbody>tr:hover{
+    background-color: rgb(95, 142, 231);
+    color: white;
+}
+
+table.tempo_table tbody>tr:hover td{
+    border-radius: 0px;
+}
+
+table.tempo_table td, table.tempo_table th{
+  
+        padding: 15px 5px;
+        display: table-cell;
+        text-align: left;
+        vertical-align: middle;
+        border-radius: 2px;
+        border: none;
+  
+}

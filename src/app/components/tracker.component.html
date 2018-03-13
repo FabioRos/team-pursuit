@@ -21,23 +21,25 @@
     <div>
         <span>Tempo complessivo attuale: <b>{{formatTime(getLastRecordedTime())}}</b></span>
     </div>
-    <table>
-        <tr>
+    <table class="tempo_table">
+        <thead>
             <th>Corridore</th>
             <th>Intertempo</th>
             <th>Parziale</th>
             <th>Delta Tempo</th>
             <th>Delta Percentuale</th>
-        </tr>
-        <tr class="time-record"
-        *ngFor="let record of localTimeRecordsCopy; let i = index; let last=last">
-            <td> {{ i }}: {{ riderToString(record.rider) }}</td>
-            <td> {{ formatTime(record.lap.time()) }}</td>
-            <td> {{ formatTime(getLastFullTime(i+1)) }}</td>
-            <td> {{ formatTime(record.deltaTime) }}</td>
-            <td> {{ record.deltaPercentage.toFixed(2) }}%</td>
-            
-        </tr>
+        </thead>
+        <tbody>
+            <tr class="time-record"
+            *ngFor="let record of localTimeRecordsCopy; let i = index; let last=last">
+                <td> {{ i }}: {{ riderToString(record.rider) }}</td>
+                <td> {{ formatTime(record.lap.time()) }}</td>
+                <td> {{ formatTime(getLastFullTime(i+1)) }}</td>
+                <td> {{ formatTime(record.deltaTime) }}</td>
+                <td> {{ getSanitizedNumberInPercentage(record.deltaPercentage.toFixed(2)) }}</td>
+                
+            </tr>
+        </tbody>
     </table>
 </div>
 

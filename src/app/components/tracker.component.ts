@@ -11,6 +11,8 @@ import {TimeRecord} from '../models/time-record.model';
 
 import {RIDERS} from '../mocks/riders.mock';
 
+import {MatTableDataSource} from '@angular/material';
+
 @Component({
   selector: 'tracker',
   templateUrl: './tracker.component.html',
@@ -52,8 +54,7 @@ export class TrackerComponent {
       minutes = Math.floor(timeMs / 60000).toString();
       seconds = Math.floor(Math.abs((timeMs % 60000) / 1000)).toString();
       milliseconds = Math.floor(Math.abs((timeMs % 60000) % 1000)).toString();
-      
-      return minutes + ':' + (+seconds < 10 ? '0' : '') + seconds + ':' + milliseconds;
+      return isNaN(timeMs)? '' : minutes + ':' + (+seconds < 10 ? '0' : '') + seconds + ':' + milliseconds;
   }
 
   public formatTimeIntervalAboutSeconds(timeMs: number) {
@@ -119,7 +120,25 @@ recordTimeLap(rider: Rider){
     var now: Date= new Date(timestamp);
     doc.text('EXPORT QUARTETTO ' + now.toLocaleString(), 10, 10);
 
-    var columns=['Atleta', 'Intertempo', 'Progressivo', 'delta (tempo)', ' delta (%)'];
+    var columns=this.getTableColumns();
+    var rows= this.getTableRows();
+    doc.autoTable(columns, rows);
+    doc.save('EXPORT QUARTETTO [ ' + now.toLocaleString() + ' ].pdf');
+
+
+  }
+
+  getSanitizedNumber(num){
+    return isNaN(num)? '' : num;
+  }
+  getSanitizedNumberInPercentage(num){
+    return isNaN(num)? '' : num+'%';
+  }
+getTableColumns(){
+    return ['Atleta', 'Intertempo', 'Progressivo', 'delta (tempo)', ' delta (%)'];
+}
+
+getTableRows(){
     var rows=[];
     for (var i=0; i < this.localTimeRecordsCopy.length; i++){
         var current_record_array = []
@@ -135,11 +154,8 @@ recordTimeLap(rider: Rider){
         current_record_array.push( i==0 ? '' : current_record_.deltaPercentage.toFixed(2) );
         rows.push(current_record_array);
       }
-    doc.autoTable(columns, rows);
-    doc.save('EXPORT QUARTETTO [ ' + now.toLocaleString() + ' ].pdf');
-
-
-  }
+    return rows;
+}
 
 ngOnInit(){
       this.stopwatchService.getAllTimeRecords().subscribe(timerecordsData => { 
