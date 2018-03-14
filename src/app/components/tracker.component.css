@@ -33,3 +33,13 @@ table.tempo_table td, table.tempo_table th{
         border: none;
   
 }
+
+div.riders{
+    /* Sticky */
+    background-color: white;
+    border-bottom: 1px solid rgb(95, 142, 231);
+    position: sticky;
+    top: 0;
+    padding: 10px !important;
+    z-index: 10;
+}
